@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorriso Vitale Odontologia — Assistente Virtual com IA</title>
+<meta name="description" content="Site modelo de clínica odontológica com assistente virtual de IA integrado, respondendo dúvidas de pacientes e ajudando no agendamento. Projeto de demonstração do portfólio de Camila Dias.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230e8a7d' d='M12 2C8 2 5 4.5 5 8c0 2 .5 3 .8 4.5.3 1.5.2 3 .5 4.5.3 1.5 1 3 1.7 3s1-1.5 1.3-3c.2-1 .3-2 .7-2s.5 1 .7 2c.3 1.5.6 3 1.3 3s1.4-1.5 1.7-3c.3-1.5.2-3 .5-4.5.3-1.5.8-2.5.8-4.5 0-3.5-3-6-7-6z'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css?family=Poppins:500,600,700,800|Inter:400,500,600" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="demo-ribbon">
+  🧪 Projeto de demonstração criado por <a href="https://cmdiasbr.github.io/negocios.html" target="_blank" rel="noopener noreferrer">Camila Dias</a> — negócio e dados fictícios, apenas para ilustrar a solução.
+</div>
+
+<header class="nav-wrap">
+  <nav class="nav">
+    <a href="#hero" class="logo"><svg class="tooth-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8 2 5 4.5 5 8c0 2 .5 3 .8 4.5.3 1.5.2 3 .5 4.5.3 1.5 1 3 1.7 3s1-1.5 1.3-3c.2-1 .3-2 .7-2s.5 1 .7 2c.3 1.5.6 3 1.3 3s1.4-1.5 1.7-3c.3-1.5.2-3 .5-4.5.3-1.5.8-2.5.8-4.5 0-3.5-3-6-7-6z"/></svg> Sorriso <span>Vitale</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#assistente">Assistente IA</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">☰</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO + ASSISTENTE (foco central da página) -->
+  <section id="hero" class="hero">
+    <div class="hero-text">
+      <p class="badge"><span class="dot"></span> Atendimento com Inteligência Artificial</p>
+      <h1>Sua dúvida, respondida<br><span class="accent">na hora</span>, por IA.</h1>
+      <p class="lead">
+        A Sorriso Vitale foi a primeira clínica da região a colocar uma assistente virtual
+        para tirar dúvidas sobre tratamentos, valores e horários — 24 horas por dia, direto no site.
+      </p>
+      <a href="#assistente" class="btn-scroll">↓ Converse com a assistente agora</a>
+    </div>
+
+    <div class="assistant-card" id="assistente">
+      <div class="assistant-head">
+        <div class="assistant-avatar"><svg class="tooth-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8 2 5 4.5 5 8c0 2 .5 3 .8 4.5.3 1.5.2 3 .5 4.5.3 1.5 1 3 1.7 3s1-1.5 1.3-3c.2-1 .3-2 .7-2s.5 1 .7 2c.3 1.5.6 3 1.3 3s1.4-1.5 1.7-3c.3-1.5.2-3 .5-4.5.3-1.5.8-2.5.8-4.5 0-3.5-3-6-7-6z"/></svg></div>
+        <div>
+          <strong>Vitale IA</strong>
+          <span class="status"><span class="dot online"></span> assistente virtual · online</span>
+        </div>
+      </div>
+
+      <div class="chat-window" id="chatWindow">
+        <div class="msg bot">
+          Oi! Eu sou a assistente virtual da Sorriso Vitale 😊 Posso te ajudar com informações sobre
+          tratamentos, valores, convênios ou agendamento. O que você gostaria de saber?
+        </div>
+      </div>
+
+      <div class="quick-replies" id="quickReplies">
+        <button data-q="Quais tratamentos vocês fazem?">Tratamentos</button>
+        <button data-q="Vocês atendem convênio?">Convênios</button>
+        <button data-q="Como funciona o clareamento dental?">Clareamento</button>
+        <button data-q="É emergência, o que eu faço?">Emergência</button>
+      </div>
+
+      <form class="chat-form" id="chatForm">
+        <input type="text" id="chatInput" placeholder="Digite sua pergunta..." autocomplete="off" maxlength="200">
+        <button type="submit" aria-label="Enviar">➤</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Serviços</span>
+      <h2>Tratamentos que oferecemos</h2>
+    </div>
+    <div class="grid-4">
+      <div class="card">
+        <div class="icon">🪥</div>
+        <h3>Limpeza &amp; Prevenção</h3>
+        <p>Profilaxia, remoção de tártaro e orientação de higiene bucal para toda a família.</p>
+      </div>
+      <div class="card">
+        <div class="icon">✨</div>
+        <h3>Clareamento Dental</h3>
+        <p>Técnicas a laser e caseiras supervisionadas, com resultado natural e seguro.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🦴</div>
+        <h3>Ortodontia</h3>
+        <p>Aparelhos fixos, estéticos e alinhadores transparentes para todas as idades.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🚨</div>
+        <h3>Emergência 24h</h3>
+        <p>Atendimento imediato para dor de dente, trauma e urgências odontológicas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA A IA -->
+  <section class="section alt">
+    <div class="section-head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Por que ter uma assistente de IA no site?</h2>
+    </div>
+    <div class="grid-3">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>Paciente chega com dúvida</h3>
+        <p>A qualquer hora, o visitante já encontra a assistente pronta para conversar — sem esperar ninguém responder.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>A IA entende e orienta</h3>
+        <p>Explica tratamentos, valores aproximados e convênios aceitos com uma linguagem simples e acolhedora.</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>Encaminha para agendar</h3>
+        <p>Quando o paciente está pronto, a assistente direciona para o WhatsApp da recepção fechar o horário.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Sobre</span>
+      <h2>Cuidado odontológico de verdade, com tecnologia a favor do paciente</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo" aria-hidden="true"></div>
+      <div class="about-text">
+        <p>
+          A <strong>Sorriso Vitale</strong> é uma clínica odontológica fictícia, criada como projeto de
+          demonstração para mostrar como um assistente de Inteligência Artificial pode ficar no
+          <strong>centro da experiência</strong> de um site — sendo o primeiro contato do paciente com a clínica,
+          e não apenas um botão de chat escondido no canto da tela.
+        </p>
+        <p>
+          Equipe fictícia: 4 dentistas generalistas e especialistas, atendimento de segunda a sábado,
+          estrutura própria de raio-x digital e conforto pensado para pacientes com ansiedade odontológica.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="section alt">
+    <div class="section-head">
+      <span class="eyebrow">Contato</span>
+      <h2>Dados de exemplo (fictícios)</h2>
+      <p>Este bloco simula as informações reais que a assistente de IA usaria para orientar pacientes.</p>
+    </div>
+    <div class="grid-3 contact-grid">
+      <div class="card">
+        <div class="icon">📍</div>
+        <h3>Endereço</h3>
+        <p>Av. Exemplo Fictício, 1234 — Centro, Cidade Modelo/SP</p>
+      </div>
+      <div class="card">
+        <div class="icon">🕑</div>
+        <h3>Horário</h3>
+        <p>Segunda a sábado, 8h às 19h. Emergências 24h por telefone.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💳</div>
+        <h3>Convênios</h3>
+        <p>Principais convênios da região + particular com parcelamento.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>Projeto de demonstração — negócio fictício, sem operação real.</p>
+  <p>
+    Site &amp; assistente de IA desenvolvidos por
+    <a href="https://cmdiasbr.github.io/negocios.html" target="_blank" rel="noopener noreferrer"><strong>Camila Dias</strong></a>
+    — quer um assistente assim para o seu negócio?
+    <a href="https://wa.me/5511970560916?text=Ol%C3%A1%20Camila%2C%20vi%20o%20site%20modelo%20da%20cl%C3%ADnica%20odontol%C3%B3gica%20e%20quero%20um%20assistente%20de%20IA%20assim%20para%20o%20meu%20neg%C3%B3cio!" target="_blank" rel="noopener noreferrer">Fale no WhatsApp →</a>
+  </p>
+</footer>
+
+<script src="js/assistant.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
