@@ -9,18 +9,22 @@ de um site — e não apenas um chat escondido no canto da tela.
 ## O que este projeto demonstra
 
 - Site institucional simples, responsivo, com HTML/CSS/JS puro (sem frameworks).
-- Assistente virtual embutido no centro da página inicial, com respostas por palavra-chave
-  (perguntas sobre tratamentos, convênios, valores, emergência, agendamento).
-- Indicador de "digitando..." e botões de resposta rápida para simular uma conversa natural.
+- Assistente virtual embutido no centro da página inicial, com **IA real** (Llama 3.3 via Groq)
+  respondendo perguntas sobre tratamentos, convênios, valores, emergência e agendamento.
+- Indicador de "digitando..." para simular uma conversa natural.
 
-## Assistente simulado vs. IA real
+## Arquitetura: front-end + Cloudflare Worker + Groq
 
-Este assistente responde com regras de palavra-chave no próprio navegador — não há chamada
-a nenhuma API de IA. É uma forma segura e sem custo de demonstrar a experiência de uso.
+O front-end (`js/assistant.js`) nunca tem acesso a nenhuma chave de API. Ele envia o histórico
+da conversa para um [Cloudflare Worker](worker/) (`worker/src/index.js`), que guarda a API key
+da Groq como *secret* e faz a chamada ao modelo `llama-3.3-70b-versatile`. Esse é o mesmo padrão
+usado em [espacomariamariiah.github.io](https://espacomariamariiah.github.io/).
 
-Em um projeto real, o mesmo front-end se conecta a um backend (ex: Cloudflare Worker) que
-consulta um modelo de linguagem real (ex: Llama 3.3 via Groq), como implementado em
-[espacomariamariiah.github.io](https://espacomariamariiah.github.io/).
+Se o Worker estiver indisponível (rede, cold start etc.), o front-end cai automaticamente
+para respostas locais por palavra-chave, para o chat nunca ficar "morto" numa demonstração pública.
+
+Para rodar o Worker localmente: use `wrangler dev` dentro da pasta `worker/`, com uma
+`worker/.dev.vars` local (não versionada) baseada em `worker/.dev.vars.example`.
 
 ## Quer algo assim para o seu negócio?
 

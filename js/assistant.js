@@ -1,16 +1,20 @@
 /*
-  Assistente virtual simulado — respostas por palavra-chave, sem chamada externa de IA.
-  Este é um projeto de demonstração; em produção, este mesmo front-end conversaria com um
-  backend seguro (ex: Cloudflare Worker) que chama um LLM real (ex: Groq/Llama), como no
-  projeto https://espacomariamariiah.github.io/.
+  Assistente virtual com IA real (Llama 3.3 via Groq), através de um Cloudflare Worker que
+  guarda a API key com segurança — o front-end nunca tem acesso à chave.
+  Se o Worker estiver indisponível (rede, cold start, etc.), cai para respostas locais por
+  palavra-chave, para o chat nunca ficar "morto" numa demonstração pública.
 */
 (function () {
   'use strict';
+
+  var CHAT_ENDPOINT = 'https://clinica-odontologica-chat.cmdias.workers.dev/chat';
 
   var chatWindow = document.getElementById('chatWindow');
   var chatForm = document.getElementById('chatForm');
   var chatInput = document.getElementById('chatInput');
   var quickReplies = document.getElementById('quickReplies');
+
+  var history = [];
 
   var RULES = [
     {
@@ -68,7 +72,7 @@
     return str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
   }
 
-  function findReply(userText) {
+  function findLocalReply(userText) {
     var text = normalize(userText);
     for (var i = 0; i < RULES.length; i++) {
       var rule = RULES[i];
@@ -88,26 +92,47 @@
     return el;
   }
 
-  function showTypingThenReply(userText) {
+  function showTyping() {
     var typingEl = document.createElement('div');
     typingEl.className = 'msg bot typing';
     typingEl.innerHTML = '<span></span><span></span><span></span>';
     chatWindow.appendChild(typingEl);
     chatWindow.scrollTop = chatWindow.scrollHeight;
-
-    var delay = 500 + Math.random() * 700;
-    setTimeout(function () {
-      typingEl.remove();
-      addMessage(findReply(userText), 'bot');
-    }, delay);
+    return typingEl;
   }
 
-  function handleUserMessage(text) {
+  async function fetchAIReply() {
+    var res = await fetch(CHAT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history }),
+    });
+    if (!res.ok) throw new Error('Worker respondeu ' + res.status);
+    var data = await res.json();
+    if (!data.reply) throw new Error('Resposta sem conteúdo');
+    return data.reply;
+  }
+
+  async function handleUserMessage(text) {
     text = text.trim();
     if (!text) return;
     addMessage(text, 'user');
-    showTypingThenReply(text);
+    history.push({ role: 'user', content: text });
+
+    var typingEl = showTyping();
+    var reply;
+    try {
+      reply = await fetchAIReply();
+    } catch (err) {
+      console.error('Falha ao consultar a IA, usando resposta local:', err);
+      reply = findLocalReply(text);
+    }
+    typingEl.remove();
+    addMessage(reply, 'bot');
+    history.push({ role: 'assistant', content: reply });
   }
+
+  window.AssistantChat = { handleUserMessage: handleUserMessage, addMessage: addMessage };
 
   if (chatForm) {
     chatForm.addEventListener('submit', function (e) {

@@ -1,0 +1,13 @@
+name = "clinica-odontologica-chat"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://cmdiasbr.github.io"
+
+# Opcional: rate limiting por IP. Para ativar, crie o namespace com
+#   wrangler kv namespace create RATE_LIMIT_KV
+# e descomente o bloco abaixo com o id retornado.
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT_KV"
+# id = "COLOQUE_O_ID_AQUI"
